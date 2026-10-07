@@ -1,5 +1,6 @@
 #include <cctype>
 #include <cstddef>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,46 +23,56 @@ std::string getTokenType(TokenType type) {
 }
 
 int main(int argc, char *argv[]) {
-    // if (argc == 1) {
-    //     std::cout << "usage: " << argv[0] << " <filename>\n";
-    // }
+    if (argc == 1) {
+        std::cout << "usage: " << argv[0] << " <file>\n";
+        return 1;
+    }
 
     std::vector<Token> tokens;
-    std::string str = "return 0";
-    std::size_t len = str.size();
 
-    for (std::size_t i = 0; i < len; i++) {
-        if (std::isspace(str[i])) {
-            continue;
+    {
+        std::ifstream file(argv[1]);
+
+        if (!file.is_open()) {
+            std::cerr << "Error opening the file!" << std::endl;
+            return 1;
         }
 
-        if (std::isalpha(str[i]) || str[i] == '_') {
-            std::string text;
-            while (std::isalnum(str[i]) || str[i] == '_') {
-                text.push_back(str[i]);
-                i++;
-            }
-            i--;
+        std::string line;
 
-            if (text == "return" || text == "int") {
-                tokens.push_back({TokenType::KEYWORD, text});
+        while (std::getline(file, line)) {
+            std::size_t len = line.size();
+
+            for (std::size_t i = 0; i < len; i++) {
+                if (std::isspace(line[i])) {
+                    continue;
+                }
+
+                if (std::isalpha(line[i]) || line[i] == '_') {
+                    std::string text;
+                    while (std::isalnum(line[i]) || line[i] == '_') {
+                        text.push_back(line[i]);
+                        i++;
+                    }
+                    i--;
+
+                    if (text == "return" || text == "int") {
+                        tokens.push_back({TokenType::KEYWORD, text});
+                    }
+                }
+
+                if (std::isdigit(line[i])) {
+                    std::string text;
+                    while (std::isdigit(line[i])) {
+                        text.push_back(line[i]);
+                        i++;
+                    }
+                    i--;
+
+                    tokens.push_back({TokenType::INT_LITERAL, text});
+                }
             }
         }
-
-        if (std::isdigit(str[i])) {
-            std::string text;
-            while (std::isdigit(str[i])) {
-                text.push_back(str[i]);
-                i++;
-            }
-            i--;
-
-            tokens.push_back({TokenType::INT_LITERAL, text});
-        }
-
-        // if (i == 0 && std::isdigit(str[i])) {
-        //
-        // }
     }
 
     for (std::size_t i = 0; i < tokens.size(); i++) {
