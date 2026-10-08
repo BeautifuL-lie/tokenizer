@@ -24,7 +24,7 @@ std::string getTokenType(TokenType type) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc == 1) {
+    if (argc < 2) {
         std::cout << "usage: " << argv[0] << " <file>\n";
         return 1;
     }
