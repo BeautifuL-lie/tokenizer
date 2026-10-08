@@ -5,15 +5,15 @@
 #include "./utils.hpp"
 
 namespace util {
-std::string readfile(const std::string &filepath) {
-    std::ifstream file(filepath);
+    std::string readfile(const std::string &filepath) {
+        std::ifstream file(filepath);
 
-    if (!file.is_open()) {
-        return "";
+        if (!file.is_open()) {
+            return "";
+        }
+
+        std::ostringstream buffer;
+        buffer << file.rdbuf();
+        return buffer.str();
     }
-
-    std::ostringstream buffer;
-    buffer << file.rdbuf();
-    return buffer.str();
-}
 } // namespace util
