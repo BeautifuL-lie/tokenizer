@@ -1,8 +1,8 @@
+#include "utils.hpp"
+
 #include <fstream>
 #include <sstream>
 #include <string>
-
-#include "./utils.hpp"
 
 namespace util {
     std::string readfile(const std::string &filepath) {

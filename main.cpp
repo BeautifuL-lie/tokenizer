@@ -1,12 +1,12 @@
+#include "types.hpp"
+#include "utils.hpp"
+
 #include <cctype>
 #include <cstddef>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-
-#include "./types.hpp"
-#include "./utils.hpp"
 
 std::string getTokenType(TokenType type) {
     switch (type) {
