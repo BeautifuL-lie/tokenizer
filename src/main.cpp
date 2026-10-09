@@ -1,6 +1,6 @@
-#include "token.hpp"
-#include "types.hpp"
-#include "utils.hpp"
+#include "../include/token.hpp"
+#include "../include/types.hpp"
+#include "../include/utils.hpp"
 
 #include <cstddef>
 #include <iostream>

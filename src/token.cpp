@@ -1,6 +1,6 @@
-#include "token.hpp"
+#include "../include/token.hpp"
 
-#include "types.hpp"
+#include "../include/types.hpp"
 
 #include <cctype>
 #include <string>
